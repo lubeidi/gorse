@@ -196,6 +196,7 @@ func (m *Master) runLoadDatasetTask() error {
 	MemoryInUseBytesVec.WithLabelValues("ranking_test_set").Set(float64(sizeof.DeepSize(m.clickTestSet)))
 
 	LoadDatasetTotalSeconds.Set(time.Since(initialStartTime).Seconds())
+	log.Logger().Info("load dataset seconds", zap.Any("time", time.Since(initialStartTime).Seconds()))
 	return nil
 }
 
@@ -1472,6 +1473,7 @@ func (m *Master) LoadDataFromDatabase(ctx context.Context, database data.Databas
 		zap.Duration("used_time", time.Since(start)))
 	LoadDatasetStepSecondsVec.WithLabelValues("load_users").Set(time.Since(start).Seconds())
 	span.Add(1)
+	log.Logger().Info("load dataset users seconds", zap.Any("time", time.Since(start).Seconds()))
 
 	// STEP 2: pull items
 	itemLabelCount := make(map[string]int)
@@ -1538,6 +1540,7 @@ func (m *Master) LoadDataFromDatabase(ctx context.Context, database data.Databas
 		zap.Duration("used_time", time.Since(start)))
 	LoadDatasetStepSecondsVec.WithLabelValues("load_items").Set(time.Since(start).Seconds())
 	span.Add(1)
+	log.Logger().Info("load dataset items seconds", zap.Any("time", time.Since(start).Seconds()))
 
 	// create positive set
 	popularCount := make([]int32, rankingDataset.ItemCount())
@@ -1602,6 +1605,7 @@ func (m *Master) LoadDataFromDatabase(ctx context.Context, database data.Databas
 		zap.Duration("used_time", time.Since(start)))
 	LoadDatasetStepSecondsVec.WithLabelValues("load_positive_feedback").Set(time.Since(start).Seconds())
 	span.Add(1)
+	log.Logger().Info("load dataset positive feedback seconds", zap.Any("time", time.Since(start).Seconds()))
 
 	// create negative set
 	negativeSet := make([]mapset.Set[int32], rankingDataset.UserCount())
@@ -1652,6 +1656,7 @@ func (m *Master) LoadDataFromDatabase(ctx context.Context, database data.Databas
 		zap.Duration("used_time", time.Since(start)))
 	LoadDatasetStepSecondsVec.WithLabelValues("load_negative_feedback").Set(time.Since(start).Seconds())
 	span.Add(1)
+	log.Logger().Info("load dataset negative feedback seconds", zap.Any("time", time.Since(start).Seconds()))
 
 	// STEP 5: create click dataset
 	start = time.Now()
@@ -1695,6 +1700,7 @@ func (m *Master) LoadDataFromDatabase(ctx context.Context, database data.Databas
 		zap.Int("n_valid_negative", clickDataset.NegativeCount),
 		zap.Duration("used_time", time.Since(start)))
 	LoadDatasetStepSecondsVec.WithLabelValues("create_ranking_dataset").Set(time.Since(start).Seconds())
+	log.Logger().Info("load dataset create dataset seconds", zap.Any("time", time.Since(start).Seconds()))
 
 	// collect latest items
 	latestItems = cache.NewDocumentAggregator(startLoadTime)
