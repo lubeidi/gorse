@@ -25,6 +25,10 @@
 
 # User-specific stuff
 .idea/**/workspace.xml
+.idea/**/.gitignore
+.idea/**/gorse.iml
+.idea/**/vcs.xml
+.idea/**/modules.xml
 .idea/**/tasks.xml
 .idea/**/usage.statistics.xml
 .idea/**/dictionaries
@@ -91,7 +95,6 @@ fabric.properties
 
 # Sonarlint plugin
 .idea/sonarlint
-.idea/*
 
 ### Windows ###
 # Windows thumbnail cache files
