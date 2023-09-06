@@ -49,7 +49,7 @@ http_cors_domains = []
 http_cors_methods = []
 
 # Number of working jobs in the master node. The default value is 1.
-n_jobs = 10
+n_jobs = 30
 
 # Meta information timeout. The default value is 10s.
 meta_timeout = "10s"
@@ -163,16 +163,16 @@ index_recall = 0.9
 index_fit_epoch = 3
 
 # The time period for model fitting. The default value is "60m".
-model_fit_period = "240m"
+model_fit_period = "300m"
 
 # The time period for model searching. The default value is "360m".
 model_search_period = "360m"
 
 # The number of epochs for model searching. The default value is 100.
-model_search_epoch = 100
+model_search_epoch = 160
 
 # The number of trials for model searching. The default value is 10.
-model_search_trials = 10
+model_search_trials = 1
 
 # Enable searching models of different sizes, which consume more memory. The default value is false.
 enable_model_size_search = false

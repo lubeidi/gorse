@@ -1369,24 +1369,24 @@ func (s *RestServer) batchInsertItems(ctx context.Context, response *restful.Res
 			Labels:     item.Labels,
 			Comment:    item.Comment,
 		})
-		// insert to latest items cache
-		if err = s.CacheClient.AddDocuments(ctx, cache.LatestItems, "", []cache.Document{{
-			Id:         item.ItemId,
-			Score:      float64(timestamp.Unix()),
-			Categories: withWildCard(item.Categories),
-			Timestamp:  time.Now(),
-		}}); err != nil {
-			InternalServerError(response, err)
-			return
-		}
-		// update items cache
-		if err = s.CacheClient.UpdateDocuments(ctx, cache.ItemCache, item.ItemId, cache.DocumentPatch{
-			Categories: withWildCard(item.Categories),
-			IsHidden:   &item.IsHidden,
-		}); err != nil {
-			InternalServerError(response, err)
-			return
-		}
+		//// insert to latest items cache
+		//if err = s.CacheClient.AddDocuments(ctx, cache.LatestItems, "", []cache.Document{{
+		//	Id:         item.ItemId,
+		//	Score:      float64(timestamp.Unix()),
+		//	Categories: withWildCard(item.Categories),
+		//	Timestamp:  time.Now(),
+		//}}); err != nil {
+		//	InternalServerError(response, err)
+		//	return
+		//}
+		//// update items cache
+		//if err = s.CacheClient.UpdateDocuments(ctx, cache.ItemCache, item.ItemId, cache.DocumentPatch{
+		//	Categories: withWildCard(item.Categories),
+		//	IsHidden:   &item.IsHidden,
+		//}); err != nil {
+		//	InternalServerError(response, err)
+		//	return
+		//}
 		count++
 	}
 	parseTimesatmpTime = time.Since(start)
